@@ -1,3 +1,4 @@
+using System.Text;
 using MudBlazor.Services;
 using FESInvite11BE13.Components;
 
@@ -28,4 +29,14 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
+
+
+string filePath = "/home/hessd/dev/FESInvite11BE13/FESInvite11BE13/CSV/invite.csv";
+if (!File.Exists(filePath))
+{
+    StringBuilder sb = new();
+    sb.AppendLine("First Name,Last Name, Email, EmailInstructor, Email Secondary Instructor");
+    File.WriteAllText(filePath, sb.ToString());
+Console.WriteLine("CSV file created successfully!");
+}
 app.Run();

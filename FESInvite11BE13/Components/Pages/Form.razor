@@ -1,0 +1,30 @@
+@page "/form"
+@using System.Text
+@using FESInvite11BE13.Components.Model
+
+<MudTextField T="string" Label="First Name" @bind-Value="@_user.FirstName"></MudTextField>
+<MudTextField T="string" Label="Last Name" @bind-Value="@_user.LastName"></MudTextField>
+<MudTextField T="string" Label="Your EMail" @bind-Value="@_user.Email"></MudTextField>
+<MudTextField T="string" Label="Email from your instructor" @bind-Value="@_user.EmailInstructer"></MudTextField>
+<MudTextField T="string" Label="Secondary instructor (optional)" @bind-Value="@_user.EmailSecondarynstructer"></MudTextField>
+<MudButton OnClick="@Callback">Submit</MudButton>
+
+@code {
+    private User _user;
+
+    protected override void OnInitialized()
+    {
+        _user = new User();
+    }
+
+
+    private void Callback()
+    {
+        string filePath = "/home/hessd/dev/FESInvite11BE13/FESInvite11BE13/CSV/invite.csv";
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine($"{_user.FirstName},{_user.LastName},{_user.Email},{_user.EmailInstructer},{_user.EmailSecondarynstructer}");
+        File.AppendAllText(filePath, sb.ToString());
+        Console.WriteLine("User added to CSV");
+    }
+
+}
