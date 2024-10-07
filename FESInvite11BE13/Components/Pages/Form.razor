@@ -1,16 +1,27 @@
-@page "/form"
+@page "/"
 @using System.Text
 @using FESInvite11BE13.Components.Model
 
-<MudTextField T="string" Label="First Name" @bind-Value="@_user.FirstName"></MudTextField>
-<MudTextField T="string" Label="Last Name" @bind-Value="@_user.LastName"></MudTextField>
-<MudTextField T="string" Label="Your EMail" @bind-Value="@_user.Email"></MudTextField>
-<MudTextField T="string" Label="Email from your instructor" @bind-Value="@_user.EmailInstructer"></MudTextField>
-<MudTextField T="string" Label="Secondary instructor (optional)" @bind-Value="@_user.EmailSecondarynstructer"></MudTextField>
-<MudButton OnClick="@Callback">Submit</MudButton>
+<MudContainer MaxWidth="MaxWidth.Large" Class="my-4">
+    <MudPaper Class="pa-4 mb-4" Elevation="1">
+        <MudForm @bind-IsValid="@_isValid">
+            <MudText Typo="Typo.h5" Align="Align.Left" GutterBottom="true">
+                Invitation Form
+            </MudText>
+            <MudTextField T="string" Label="First Name" @bind-Value="@_user.FirstName" Required="true" Immediate="true"/>
+            <MudTextField T="string" Label="Last Name" @bind-Value="@_user.LastName" Required="true" Immediate="true"/>
+            <MudTextField T="string" Label="Your E-Mail" @bind-Value="@_user.Email" Required="true" Immediate="true"/>
+            <MudTextField T="string" Label="Email from your instructor" @bind-Value="@_user.EmailInstructer" Required="true" Immediate="true"/>
+            <MudTextField T="string" Label="Secondary instructor (optional)" @bind-Value="@_user.EmailSecondarynstructer"/>
+            <MudButton OnClick="@Callback" Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_isValid)">Submit</MudButton>
+        </MudForm>
+    </MudPaper>
+</MudContainer>
+
 
 @code {
     private User _user;
+    private bool _isValid;
 
     protected override void OnInitialized()
     {
@@ -23,7 +34,9 @@
         string filePath = "/home/hessd/dev/FESInvite11BE13/FESInvite11BE13/CSV/invite.csv";
         StringBuilder sb = new StringBuilder();
         sb.AppendLine($"{_user.FirstName},{_user.LastName},{_user.Email},{_user.EmailInstructer},{_user.EmailSecondarynstructer}");
-        File.AppendAllText(filePath, sb.ToString());
+        string result = sb.ToString().Trim().TrimEnd(',') + Environment.NewLine;
+        File.AppendAllTextAsync(filePath, result);
+        Console.WriteLine(sb.ToString().TrimEnd(','));
         Console.WriteLine("User added to CSV");
     }
 

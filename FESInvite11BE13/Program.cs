@@ -35,7 +35,7 @@ string filePath = "/home/hessd/dev/FESInvite11BE13/FESInvite11BE13/CSV/invite.cs
 if (!File.Exists(filePath))
 {
     StringBuilder sb = new();
-    sb.AppendLine("First Name,Last Name, Email, EmailInstructor, Email Secondary Instructor");
+    sb.AppendLine("First Name,Last Name, His Email, EmailInstructor, Email Secondary Instructor(Optional)");
     File.WriteAllText(filePath, sb.ToString());
 Console.WriteLine("CSV file created successfully!");
 }
