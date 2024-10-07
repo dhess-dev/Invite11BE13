@@ -35,7 +35,7 @@ string filePath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "invite.c
 if (!File.Exists(filePath))
 {
     StringBuilder sb = new();
-    sb.AppendLine("First Name,Last Name, His Email, EmailInstructor, Email Secondary Instructor(Optional)");
+    sb.AppendLine("First Name,Last Name, His Email, His Company ,EmailInstructor, Email Secondary Instructor(Optional)");
     File.WriteAllText(filePath, sb.ToString());
 Console.WriteLine("CSV file created successfully!");
 }

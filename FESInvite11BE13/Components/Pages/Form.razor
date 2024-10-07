@@ -1,6 +1,7 @@
 @page "/"
 @using System.Text
 @using FESInvite11BE13.Components.Model
+@inject NavigationManager NavigationManager
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="my-4">
     <MudPaper Class="pa-4 mb-4" Elevation="1">
@@ -37,8 +38,7 @@
         sb.AppendLine($"{_user.FirstName},{_user.LastName},{_user.Email},{_user.EmailInstructer},{_user.EmailSecondarynstructer}");
         string result = sb.ToString().Trim().TrimEnd(',') + Environment.NewLine;
         File.AppendAllTextAsync(filePath, result);
-        Console.WriteLine(sb.ToString().TrimEnd(','));
-        Console.WriteLine("User added to CSV");
+        NavigationManager.NavigateTo("/success");
     }
 
 }
