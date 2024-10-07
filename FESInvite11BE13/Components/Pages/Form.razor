@@ -11,6 +11,7 @@
             <MudTextField T="string" Label="First Name" @bind-Value="@_user.FirstName" Required="true" Immediate="true"/>
             <MudTextField T="string" Label="Last Name" @bind-Value="@_user.LastName" Required="true" Immediate="true"/>
             <MudTextField T="string" Label="Your E-Mail" @bind-Value="@_user.Email" Required="true" Immediate="true"/>
+            <MudTextField T="string" Label="Your Company" @bind-Value="@_user.Company" Required="true" Immediate="true"/>
             <MudTextField T="string" Label="Email from your instructor" @bind-Value="@_user.EmailInstructer" Required="true" Immediate="true"/>
             <MudTextField T="string" Label="Secondary instructor (optional)" @bind-Value="@_user.EmailSecondarynstructer"/>
             <MudButton OnClick="@Callback" Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_isValid)">Submit</MudButton>
@@ -31,7 +32,7 @@
 
     private void Callback()
     {
-        string filePath = "/home/hessd/dev/FESInvite11BE13/FESInvite11BE13/CSV/invite.csv";
+        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "invite.csv");
         StringBuilder sb = new StringBuilder();
         sb.AppendLine($"{_user.FirstName},{_user.LastName},{_user.Email},{_user.EmailInstructer},{_user.EmailSecondarynstructer}");
         string result = sb.ToString().Trim().TrimEnd(',') + Environment.NewLine;

@@ -31,7 +31,7 @@ app.MapRazorComponents<App>()
 
 
 
-string filePath = "/home/hessd/dev/FESInvite11BE13/FESInvite11BE13/CSV/invite.csv";
+string filePath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "invite.csv");
 if (!File.Exists(filePath))
 {
     StringBuilder sb = new();
