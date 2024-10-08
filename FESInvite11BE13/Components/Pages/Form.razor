@@ -9,12 +9,16 @@
             <MudText Typo="Typo.h5" Align="Align.Left" GutterBottom="true">
                 Invitation Form
             </MudText>
-            <MudTextField T="string" Label="First Name" @bind-Value="@_user.FirstName" Required="true" Immediate="true"/>
-            <MudTextField T="string" Label="Last Name" @bind-Value="@_user.LastName" Required="true" Immediate="true"/>
+            <MudTextField T="string" Label="Your First Name" @bind-Value="@_user.FirstName" Required="true" Immediate="true"/>
+            <MudTextField T="string" Label="Your Last Name" @bind-Value="@_user.LastName" Required="true" Immediate="true"/>
             <MudTextField T="string" Label="Your E-Mail" @bind-Value="@_user.Email" Required="true" Immediate="true"/>
             <MudTextField T="string" Label="Your Company" @bind-Value="@_user.Company" Required="true" Immediate="true"/>
+            <MudTextField T="string" Label="Instructor FirstName" @bind-Value="@_user.InstructorFirstName" Required="true" Immediate="true"/>
+            <MudTextField T="string" Label="Instructor LastName" @bind-Value="@_user.InstructorLastName" Required="true" Immediate="true"/>
             <MudTextField T="string" Label="Email from your instructor" @bind-Value="@_user.EmailInstructer" Required="true" Immediate="true"/>
-            <MudTextField T="string" Label="Secondary instructor (optional)" @bind-Value="@_user.EmailSecondarynstructer"/>
+            <MudTextField T="string" Label="Secondary Instructor FirstName (optional)" @bind-Value="@_user.SecondaryInstructorFirstName"/>
+            <MudTextField T="string" Label="Secondary Instructor LastName (optional)" @bind-Value="@_user.SecondaryInstructorLastName"/>
+            <MudTextField T="string" Label="Email from your Secondary instructor (optional)" @bind-Value="@_user.EmailSecondarynstructer"/>
             <MudButton OnClick="@Callback" Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_isValid)">Submit</MudButton>
         </MudForm>
     </MudPaper>
@@ -35,7 +39,7 @@
     {
         string filePath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "invite.csv");
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine($"{_user.FirstName},{_user.LastName},{_user.Email},{_user.EmailInstructer},{_user.EmailSecondarynstructer}");
+        sb.AppendLine($"{_user.FirstName},{_user.LastName},{_user.Email},{_user.Company},{_user.InstructorFirstName},{_user.InstructorLastName},{_user.EmailInstructer},{_user.SecondaryInstructorFirstName},{_user.SecondaryInstructorLastName},{_user.EmailSecondarynstructer},");
         string result = sb.ToString().Trim().TrimEnd(',') + Environment.NewLine;
         File.AppendAllTextAsync(filePath, result);
         NavigationManager.NavigateTo("/success");
